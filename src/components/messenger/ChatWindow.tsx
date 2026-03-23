@@ -7,9 +7,10 @@ import type { Chat } from "@/pages/Index";
 interface Props {
   chat: Chat;
   onBack: () => void;
+  onCall?: (video: boolean) => void;
 }
 
-export default function ChatWindow({ chat, onBack }: Props) {
+export default function ChatWindow({ chat, onBack, onCall }: Props) {
   const [messages, setMessages] = useState(MESSAGES);
   const [text, setText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,8 +35,8 @@ export default function ChatWindow({ chat, onBack }: Props) {
           <span className="chatwin-status">{chat.online ? "в сети" : "был(а) недавно"}</span>
         </div>
         <div className="chatwin-actions">
-          <button className="header-btn"><Icon name="Phone" size={20} /></button>
-          <button className="header-btn"><Icon name="Video" size={20} /></button>
+          <button className="header-btn" onClick={() => onCall?.(false)}><Icon name="Phone" size={20} /></button>
+          <button className="header-btn" onClick={() => onCall?.(true)}><Icon name="Video" size={20} /></button>
         </div>
       </div>
 

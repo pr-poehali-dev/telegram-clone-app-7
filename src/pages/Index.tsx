@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatsScreen from "@/components/messenger/ChatsScreen";
 import ContactsScreen from "@/components/messenger/ContactsScreen";
 import GroupsScreen from "@/components/messenger/GroupsScreen";
@@ -9,6 +9,8 @@ import ProfileScreen from "@/components/messenger/ProfileScreen";
 import SettingsScreen from "@/components/messenger/SettingsScreen";
 import BottomNav from "@/components/messenger/BottomNav";
 import ChatWindow from "@/components/messenger/ChatWindow";
+import IncomingCall from "@/components/messenger/IncomingCall";
+import ActiveCall from "@/components/messenger/ActiveCall";
 
 export type Screen = "chats" | "contacts" | "groups" | "search" | "notifications" | "calls" | "profile" | "settings";
 
@@ -23,13 +25,28 @@ export interface Chat {
   isGroup?: boolean;
 }
 
+type CallState = "none" | "incoming" | "active";
+const DEMO_CALLER = { name: "Алёна Морозова", avatar: "АМ" };
+
 const Index = () => {
   const [activeScreen, setActiveScreen] = useState<Screen>("chats");
   const [openChat, setOpenChat] = useState<Chat | null>(null);
+  const [callState, setCallState] = useState<CallState>("none");
+  const [callVideo, setCallVideo] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setCallState("incoming"), 3500);
+    return () => clearTimeout(t);
+  }, []);
+
+  const startCall = (video = false) => {
+    setCallVideo(video);
+    setCallState("incoming");
+  };
 
   const renderScreen = () => {
     if (openChat) {
-      return <ChatWindow chat={openChat} onBack={() => setOpenChat(null)} />;
+      return <ChatWindow chat={openChat} onBack={() => setOpenChat(null)} onCall={startCall} />;
     }
     switch (activeScreen) {
       case "chats": return <ChatsScreen onOpenChat={setOpenChat} />;
@@ -37,7 +54,7 @@ const Index = () => {
       case "groups": return <GroupsScreen onOpenChat={setOpenChat} />;
       case "search": return <SearchScreen onOpenChat={setOpenChat} />;
       case "notifications": return <NotificationsScreen />;
-      case "calls": return <CallsScreen />;
+      case "calls": return <CallsScreen onCall={startCall} />;
       case "profile": return <ProfileScreen />;
       case "settings": return <SettingsScreen />;
       default: return <ChatsScreen onOpenChat={setOpenChat} />;
@@ -53,6 +70,25 @@ const Index = () => {
         </div>
         {!openChat && (
           <BottomNav active={activeScreen} onChange={setActiveScreen} />
+        )}
+
+        {callState === "incoming" && (
+          <IncomingCall
+            name={DEMO_CALLER.name}
+            avatar={DEMO_CALLER.avatar}
+            video={callVideo}
+            onAccept={() => setCallState("active")}
+            onDecline={() => setCallState("none")}
+          />
+        )}
+
+        {callState === "active" && (
+          <ActiveCall
+            name={DEMO_CALLER.name}
+            avatar={DEMO_CALLER.avatar}
+            video={callVideo}
+            onEnd={() => setCallState("none")}
+          />
         )}
       </div>
     </div>

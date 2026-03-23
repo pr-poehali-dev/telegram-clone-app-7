@@ -13,7 +13,11 @@ const callColor: Record<string, string> = {
   missed: "text-rose-400",
 };
 
-export default function CallsScreen() {
+interface Props {
+  onCall?: (video: boolean) => void;
+}
+
+export default function CallsScreen({ onCall }: Props) {
   return (
     <div className="screen-wrap">
       <div className="screen-header">
@@ -44,7 +48,9 @@ export default function CallsScreen() {
               </div>
             </div>
             <div className="call-action-btns">
-              <button className="call-btn"><Icon name={call.video ? "Video" : "Phone"} size={18} /></button>
+              <button className="call-btn" onClick={() => onCall?.(call.video)}>
+                <Icon name={call.video ? "Video" : "Phone"} size={18} />
+              </button>
             </div>
           </div>
         ))}
