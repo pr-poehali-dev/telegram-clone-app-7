@@ -24,7 +24,7 @@ export default function ProfileScreen({ onLogout }: Props) {
         <p className="profile-username">@alex_volkov</p>
         <div className="profile-status-badge">
           <span className="status-dot-green" />
-          <span>В сети</span>
+          <span>На Связи</span>
         </div>
       </div>
 
