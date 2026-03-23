@@ -58,7 +58,7 @@ const Index = () => {
       case "search": return <SearchScreen onOpenChat={setOpenChat} />;
       case "notifications": return <NotificationsScreen />;
       case "calls": return <CallsScreen onCall={startCall} />;
-      case "profile": return <ProfileScreen />;
+      case "profile": return <ProfileScreen onLogout={() => setAuthed(false)} />;
       case "settings": return <SettingsScreen />;
       default: return <ChatsScreen onOpenChat={setOpenChat} />;
     }

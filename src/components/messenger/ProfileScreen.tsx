@@ -1,6 +1,10 @@
 import Icon from "@/components/ui/icon";
 
-export default function ProfileScreen() {
+interface Props {
+  onLogout: () => void;
+}
+
+export default function ProfileScreen({ onLogout }: Props) {
   return (
     <div className="screen-wrap">
       <div className="screen-header">
@@ -55,6 +59,14 @@ export default function ProfileScreen() {
           </div>
         ))}
       </div>
+
+      <button
+        onClick={onLogout}
+        className="profile-logout-btn"
+      >
+        <Icon name="LogOut" size={18} />
+        Выйти из аккаунта
+      </button>
     </div>
   );
 }
