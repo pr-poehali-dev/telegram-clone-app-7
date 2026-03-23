@@ -55,7 +55,7 @@ export default function LoginScreen({ onLogin }: Props) {
           </div>
           <div className="login-logo-text">
             <div className="login-logo-title">DA·LINK</div>
-            <div className="login-logo-sub">DRONE ACADEMY</div>
+
           </div>
         </div>
 
