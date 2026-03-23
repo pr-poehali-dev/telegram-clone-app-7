@@ -33,14 +33,14 @@
     --text-primary: #ddeeff;
     --text-secondary: #6080a0;
     --text-muted: #253040;
-    --accent-1: #f5a623;
-    --accent-2: #c97d0a;
-    --accent-3: #4fc3f7;
-    --grad-main: linear-gradient(135deg, #f5a623 0%, #c97d0a 50%, #4fc3f7 100%);
-    --grad-btn: linear-gradient(135deg, #f5a623 0%, #c97d0a 100%);
+    --accent-1: #6b8c3e;
+    --accent-2: #4e6b28;
+    --accent-3: #a8c466;
+    --grad-main: linear-gradient(135deg, #a8c466 0%, #6b8c3e 50%, #3d5c1a 100%);
+    --grad-btn: linear-gradient(135deg, #7aa344 0%, #4e6b28 100%);
     --nav-height: 72px;
-    --border-glow: rgba(245, 166, 35, 0.22);
-    --border-subtle: rgba(245, 166, 35, 0.09);
+    --border-glow: rgba(107, 140, 62, 0.28);
+    --border-subtle: rgba(107, 140, 62, 0.1);
   }
 
   * {
