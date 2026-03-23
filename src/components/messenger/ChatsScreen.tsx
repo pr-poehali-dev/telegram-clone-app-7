@@ -15,7 +15,10 @@ export default function ChatsScreen({ onOpenChat }: Props) {
   return (
     <div className="screen-wrap">
       <div className="screen-header">
-        <h1 className="screen-title">Сообщения</h1>
+        <div>
+          <div className="app-brand">DRONE ACADEMY</div>
+          <h1 className="screen-title">Связь</h1>
+        </div>
         <button className="header-btn">
           <Icon name="PenSquare" size={20} />
         </button>

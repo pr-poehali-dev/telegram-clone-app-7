@@ -166,6 +166,18 @@
   }
 }
 
+/* ===== APP BRAND ===== */
+.app-brand {
+  font-size: 9px;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  opacity: 0.6;
+  margin-bottom: 1px;
+}
+
 /* ===== HEADER ===== */
 .screen-header {
   display: flex;
