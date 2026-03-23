@@ -26,21 +26,21 @@
     --radius: 0.5rem;
 
     /* App custom vars — Drone Academy style */
-    --bg-deep: #050810;
-    --bg-surface: #080c18;
-    --bg-card: #0d1220;
-    --bg-input: #111828;
-    --text-primary: #e8f4ff;
-    --text-secondary: #6b8aaa;
-    --text-muted: #2e4060;
-    --accent-1: #00d4ff;
-    --accent-2: #0090cc;
-    --accent-3: #00ff88;
-    --grad-main: linear-gradient(135deg, #00d4ff 0%, #0055aa 60%, #00ff88 100%);
-    --grad-btn: linear-gradient(135deg, #00b8e0 0%, #005fa3 100%);
+    --bg-deep: #060708;
+    --bg-surface: #0a0e12;
+    --bg-card: #0f1418;
+    --bg-input: #141b22;
+    --text-primary: #ddeeff;
+    --text-secondary: #6080a0;
+    --text-muted: #253040;
+    --accent-1: #f5a623;
+    --accent-2: #c97d0a;
+    --accent-3: #4fc3f7;
+    --grad-main: linear-gradient(135deg, #f5a623 0%, #c97d0a 50%, #4fc3f7 100%);
+    --grad-btn: linear-gradient(135deg, #f5a623 0%, #c97d0a 100%);
     --nav-height: 72px;
-    --border-glow: rgba(0, 212, 255, 0.18);
-    --border-subtle: rgba(0, 212, 255, 0.08);
+    --border-glow: rgba(245, 166, 35, 0.22);
+    --border-subtle: rgba(245, 166, 35, 0.09);
   }
 
   * {
@@ -1768,6 +1768,7 @@
 }
 
 .login-logo-icon {
+  position: relative;
   width: 60px;
   height: 60px;
   border-radius: 12px;

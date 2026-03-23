@@ -31,10 +31,11 @@ export default function LoginScreen({ onLogin }: Props) {
         {/* Logo block */}
         <div className="login-logo-block">
           <div className="login-logo-icon">
-            <Icon name="Radio" size={32} />
+            <Icon name="Plane" size={28} />
+            <Icon name="Wifi" size={16} style={{ position: "absolute", bottom: 4, right: 4 }} />
           </div>
           <div className="login-logo-text">
-            <div className="login-logo-title">СВЯЗЬ</div>
+            <div className="login-logo-title">DA·LINK</div>
             <div className="login-logo-sub">DRONE ACADEMY</div>
           </div>
         </div>
@@ -43,7 +44,7 @@ export default function LoginScreen({ onLogin }: Props) {
         <div className="login-status-bar">
           <span className="login-status-dot" />
           <span className="login-status-text">ЗАЩИЩЁННЫЙ КАНАЛ АКТИВЕН</span>
-          <span className="login-status-code">ENC:AES-256</span>
+          <span className="login-status-code">DA·2026</span>
         </div>
 
         {/* Tabs */}
