@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import LoginScreen from "@/components/messenger/LoginScreen";
 import ChatsScreen from "@/components/messenger/ChatsScreen";
 import ContactsScreen from "@/components/messenger/ContactsScreen";
 import GroupsScreen from "@/components/messenger/GroupsScreen";
@@ -29,15 +30,17 @@ type CallState = "none" | "incoming" | "active";
 const DEMO_CALLER = { name: "Алёна Морозова", avatar: "АМ" };
 
 const Index = () => {
+  const [authed, setAuthed] = useState(false);
   const [activeScreen, setActiveScreen] = useState<Screen>("chats");
   const [openChat, setOpenChat] = useState<Chat | null>(null);
   const [callState, setCallState] = useState<CallState>("none");
   const [callVideo, setCallVideo] = useState(false);
 
   useEffect(() => {
+    if (!authed) return;
     const t = setTimeout(() => setCallState("incoming"), 3500);
     return () => clearTimeout(t);
-  }, []);
+  }, [authed]);
 
   const startCall = (video = false) => {
     setCallVideo(video);
@@ -60,6 +63,17 @@ const Index = () => {
       default: return <ChatsScreen onOpenChat={setOpenChat} />;
     }
   };
+
+  if (!authed) {
+    return (
+      <div className="messenger-root">
+        <div className="messenger-bg" />
+        <div className="messenger-container">
+          <LoginScreen onLogin={() => setAuthed(true)} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="messenger-root">
