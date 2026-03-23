@@ -111,6 +111,11 @@ def handler(event: dict, context) -> dict:
         return {"statusCode": 200, "headers": headers,
                 "body": json.dumps({"token": token, "user": {"id": user_id, "name": name, "phone": phone_db, "avatar": avatar}})}
 
+    # GET /ping — health check
+    if method == "GET" and path.endswith("/ping"):
+        return {"statusCode": 200, "headers": headers,
+                "body": json.dumps({"status": "ok"})}
+
     # GET /me — проверка сессии
     if method == "GET" and path.endswith("/me"):
         token = event.get("headers", {}).get("X-Session-Token", "")

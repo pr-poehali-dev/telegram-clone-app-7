@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 interface Props {
@@ -11,6 +11,25 @@ export default function LoginScreen({ onLogin }: Props) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [serverOnline, setServerOnline] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const check = async () => {
+      try {
+        const res = await fetch("https://www.google.com/generate_204", { method: "HEAD", mode: "no-cors", cache: "no-store" });
+        setServerOnline(true);
+      } catch {
+        setServerOnline(false);
+      }
+    };
+    check();
+    const id = setInterval(check, 15000);
+    const onOnline = () => setServerOnline(true);
+    const onOffline = () => setServerOnline(false);
+    window.addEventListener("online", onOnline);
+    window.addEventListener("offline", onOffline);
+    return () => { clearInterval(id); window.removeEventListener("online", onOnline); window.removeEventListener("offline", onOffline); };
+  }, []);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -42,8 +61,16 @@ export default function LoginScreen({ onLogin }: Props) {
 
         {/* Status line */}
         <div className="login-status-bar">
-          <span className="login-status-dot" />
-          <span className="login-status-text">ЗАЩИЩЁННЫЙ КАНАЛ АКТИВЕН</span>
+          <span
+            className="login-status-dot"
+            style={{
+              background: serverOnline === null ? "#888" : serverOnline ? "#4ade80" : "#f87171",
+              boxShadow: serverOnline === null ? "none" : serverOnline ? "0 0 6px #4ade80" : "0 0 6px #f87171",
+            }}
+          />
+          <span className="login-status-text">
+            {serverOnline === null ? "ПРОВЕРКА КАНАЛА..." : serverOnline ? "ЗАЩИЩЁННЫЙ КАНАЛ АКТИВЕН" : "КАНАЛ НЕДОСТУПЕН"}
+          </span>
           <span className="login-status-code">DA·2026</span>
         </div>
 
