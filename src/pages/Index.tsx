@@ -1,11 +1,59 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import ChatsScreen from "@/components/messenger/ChatsScreen";
+import ContactsScreen from "@/components/messenger/ContactsScreen";
+import GroupsScreen from "@/components/messenger/GroupsScreen";
+import SearchScreen from "@/components/messenger/SearchScreen";
+import NotificationsScreen from "@/components/messenger/NotificationsScreen";
+import CallsScreen from "@/components/messenger/CallsScreen";
+import ProfileScreen from "@/components/messenger/ProfileScreen";
+import SettingsScreen from "@/components/messenger/SettingsScreen";
+import BottomNav from "@/components/messenger/BottomNav";
+import ChatWindow from "@/components/messenger/ChatWindow";
+
+export type Screen = "chats" | "contacts" | "groups" | "search" | "notifications" | "calls" | "profile" | "settings";
+
+export interface Chat {
+  id: number;
+  name: string;
+  avatar: string;
+  lastMessage: string;
+  time: string;
+  unread: number;
+  online: boolean;
+  isGroup?: boolean;
+}
 
 const Index = () => {
+  const [activeScreen, setActiveScreen] = useState<Screen>("chats");
+  const [openChat, setOpenChat] = useState<Chat | null>(null);
+
+  const renderScreen = () => {
+    if (openChat) {
+      return <ChatWindow chat={openChat} onBack={() => setOpenChat(null)} />;
+    }
+    switch (activeScreen) {
+      case "chats": return <ChatsScreen onOpenChat={setOpenChat} />;
+      case "contacts": return <ContactsScreen onOpenChat={setOpenChat} />;
+      case "groups": return <GroupsScreen onOpenChat={setOpenChat} />;
+      case "search": return <SearchScreen onOpenChat={setOpenChat} />;
+      case "notifications": return <NotificationsScreen />;
+      case "calls": return <CallsScreen />;
+      case "profile": return <ProfileScreen />;
+      case "settings": return <SettingsScreen />;
+      default: return <ChatsScreen onOpenChat={setOpenChat} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+    <div className="messenger-root">
+      <div className="messenger-bg" />
+      <div className="messenger-container">
+        <div className="messenger-screen">
+          {renderScreen()}
+        </div>
+        {!openChat && (
+          <BottomNav active={activeScreen} onChange={setActiveScreen} />
+        )}
       </div>
     </div>
   );
